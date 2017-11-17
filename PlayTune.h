@@ -11,11 +11,5 @@ typedef enum Button {
    NullButton
 };
 
-typedef struct 
-{
-   int pitch;
-   int duration;
-} note;
-
 
 #endif
