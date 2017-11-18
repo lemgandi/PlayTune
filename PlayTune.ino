@@ -3,13 +3,17 @@
  */
 
 #include "PlayTune.h"
+#include "tunes.h"
+
 #include <MusicBox.h>
 
 #include <LiquidCrystal.h>
+#define PLAYPIN 15
 
 LiquidCrystal Lcd(8,9,4,5,6,7);
-MusicBox myMusicBox;
-#define PLAYPIN 15
+
+MusicBox MusicPlayer;
+
 
 /*
  * Read a button from the VMA203
@@ -64,7 +68,10 @@ void setup()
    Serial.begin(9600);
    Serial.println("Begin");
    Lcd.begin(1,2);
-   myMusicBox.begin(PLAYPIN);
+   MusicPlayer.begin(PLAYPIN);
+   MusicPlayer.loadATune(StartSong,STARTSONG);
+   MusicPlayer.loadATune(FailSong,FAILSONG);
+   MusicPlayer.loadATune(SuccessSong,SUCCESSSONG);
 }
 
 
@@ -77,16 +84,16 @@ void loop()
   switch(theButton) {
      case Up:
      case Select:
-        myMusicBox.playTune(Happy);
+        MusicPlayer.playATune(SUCCESSSONG);
 	break;
      case Down:
-        myMusicBox.playTune(Sad);
+        MusicPlayer.playATune(FAILSONG);
         break;
      case Left:
-        myMusicBox.playTune(Start);
+        MusicPlayer.playATune(STARTSONG);
 	break;
      default:  // Right
-        myMusicBox.playTune(ShaveandHaircut);
+        MusicPlayer.playATune(-1);
 	break;
   }
   
