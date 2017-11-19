@@ -106,7 +106,6 @@ void loop()
 {
   Button theButton = readButton();
   switch(theButton) {
-     case Up:
      case Select:
         writeSong("Success");
         MusicPlayer.playATune(SUCCESSSONG);
@@ -119,9 +118,13 @@ void loop()
         writeSong("Start");
         MusicPlayer.playATune(STARTSONG);
 	break;
+     case Right:
+        writeSong("Oops 2");
+	MusicPlayer.playATune(25);
+	break;
      default:  // Right
         writeSong("Oops");
-        MusicPlayer.playATune(-1);
+        MusicPlayer.playATune(10);
 	break;
   }
   Lcd.clear();
