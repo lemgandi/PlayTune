@@ -88,36 +88,44 @@ void setup()
    MusicPlayer.loadATune(StartSong,STARTSONG);
    MusicPlayer.loadATune(FailSong,FAILSONG);
    MusicPlayer.loadATune(SuccessSong,SUCCESSSONG);
+   Lcd.write("Initialized");
 }
 
+void writeSong(char *songName)
+{
+  Lcd.clear();
+  Lcd.write("Playing");
+  Lcd.setCursor(0,1);
+  Lcd.write(songName);
+}
 
 /*
  * Main Line Loop
  */
 void loop()
 {
-  Lcd.clear();
   Button theButton = readButton();
   switch(theButton) {
      case Up:
      case Select:
-        Lcd.write("Success");
+        writeSong("Success");
         MusicPlayer.playATune(SUCCESSSONG);
 	break;
      case Down:
-        Lcd.write("Fail");
+        writeSong("Fail");
         MusicPlayer.playATune(FAILSONG);
         break;
      case Left:
-        Lcd.write("Start");
+        writeSong("Start");
         MusicPlayer.playATune(STARTSONG);
 	break;
      default:  // Right
-        Lcd.write("Oops");
+        writeSong("Oops");
         MusicPlayer.playATune(-1);
 	break;
   }
-  
+  Lcd.clear();
+  Lcd.write("Waiting");
   theButton=NullButton;
 }
 
